@@ -41,8 +41,9 @@ metadata:
     name: subscriber-$USER
 spec:
   ports:
-    - port: 4000
-      name: http-4000
+    - port: 31000
+      targetPort: 1883
+      name: http-$USER
       protocol: TCP
   selector:
     app: subscriber-$USER
