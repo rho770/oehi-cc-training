@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: subscriber-$USER
+  namespace: decice
+  labels:
+    app: subscriber-$USER
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: subscriber-$USER
+  template:
+    metadata:
+      labels:
+        app: subscriber
+    spec:
+      containers:
+        - image: cn04:30500/$USER-subscriber:latest
+          name: subscriber
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: BROKER_ADDRESS
+              value: "localhost"
+          resources:
+            requests:
+              memory: 100Mi
+              cpu: 100m
+            limits:
+              memory: 200Mi
+              cpu: 200m
+      restartPolicy: Always
+      dnsPolicy: ClusterFirstWithHostNet
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: decice
+  name: subscriber-$USER
+  labels:
+    name: subscriber-$USER
+spec:
+  ports:
+    - port: 4000
+      name: http-4000
+      protocol: TCP
+  selector:
+    app: subscriber-$USER
+  type: ClusterIP
