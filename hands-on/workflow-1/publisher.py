@@ -33,11 +33,11 @@ def connect_mqtt():
     client.connect(broker, port)
     return client
 
-
+# Let it run a bit longer to avoid CrashLoopBacks..
 def publish(client):
     msg_count = 1
-    while True:
-        time.sleep(1)
+    while msg_count < 10000:
+        time.sleep(3)
         msg = f"node={node}, message counter={msg_count}"
         result = client.publish(topic, msg)
         # result: [0, 1]
@@ -47,9 +47,6 @@ def publish(client):
         else:
             print(f"Failed to send message to topic {topic}")
         msg_count += 1
-        if msg_count > 100:
-            break
-
 
 def run():
     client = connect_mqtt()

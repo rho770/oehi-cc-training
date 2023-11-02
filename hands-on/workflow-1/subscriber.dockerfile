@@ -8,8 +8,7 @@ RUN pip install paho-mqtt
 
 COPY subscriber.py /home/
 
-ENV LOG_LEVEL="INFO"
-ENV BROKER_ADDRESS="SOMETHING"
+ENV PYTHONUNBUFFERED=1
 
 # Shrink image size
 RUN rm -rf /var/lib/apt/lists/*

@@ -7,10 +7,9 @@ import time
 from paho.mqtt import client as mqtt_client
 
 
-#broker = 'localhost'           # Broker in container should be used for the tutorial
-broker = 'broker.emqx.io'       # Free public MQTT broker
-port = 1883
-topic = "data-collector"
+broker = os.getenv("BROKER_ADDRESS", "broker.emqx.io")  # Free public MQTT broker
+port = int(os.getenv("BROKER_PORT", "1883"))
+topic = os.getenv("TOPIC", "data-collector")
 node = platform.node()
 
 # Generate a Client ID with the publish prefix.

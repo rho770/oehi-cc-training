@@ -6,7 +6,7 @@ RUN apt update
 
 RUN pip install paho-mqtt
 
-COPY publisher.py /home/
+COPY client.py /home/
 
 ENV PYTHONUNBUFFERED=1
 
@@ -14,5 +14,5 @@ ENV PYTHONUNBUFFERED=1
 RUN rm -rf /var/lib/apt/lists/*
 
 ENTRYPOINT ["python3"]
-CMD ["publisher.py"]
+CMD ["client.py"]
 

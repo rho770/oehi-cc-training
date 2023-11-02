@@ -8,9 +8,10 @@ from paho.mqtt import client as mqtt_client
 
 #broker = 'localhost'           # Broker in container should be used for the tutorial
 broker = 'broker.emqx.io'       # Free public MQTT broker
-port = 1883
-topic_collector = 'data-collector'
-topic_aggregator = 'data-aggregator'
+broker = os.getenv("BROKER_ADDRESS", "broker.emqx.io")  # Free public MQTT broker
+port = int(os.getenv("BROKER_PORT", "1883"))
+topic_collector = os.getenv("TOPIC_COLLECTOR", "data-collector")
+topic_aggregator = os.getenv("TOPIC_AGGREGATOR", "data-aggregator")
 time_publish = 5
 node = platform.node()
 

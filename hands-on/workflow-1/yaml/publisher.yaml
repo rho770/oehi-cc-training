@@ -13,15 +13,18 @@ spec:
   template:
     metadata:
       labels:
-        app: publisher
+        app: publisher-$USER
     spec:
+      nodeName: cn05.guoehi.cluster
       containers:
         - image: cn04:30500/$USER-publisher:latest
           name: publisher
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           env:
             - name: BROKER_ADDRESS
-              value: "localhost"
+              value: "mosquitto.decice"
+            - name: BROKER_PORT
+              value: "1883"
             - name: TOPIC
               value: "decice"
           resources:
