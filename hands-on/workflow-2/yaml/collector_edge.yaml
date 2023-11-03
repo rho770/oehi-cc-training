@@ -15,7 +15,13 @@ spec:
       labels:
         app: collector-$USER
     spec:
-      nodeName: cn07.guoehi.cluster
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/edge
+                operator: Exists
       containers:
         - image: cn04:30500/$USER-collector:latest
           name: collector

@@ -15,7 +15,15 @@ spec:
       labels:
         app: subscriber-$USER
     spec:
-      nodeName: cn04.guoehi.cluster
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/worker
+                operator: In
+                values:
+                - worker
       containers:
         - image: cn04:30500/$USER-subscriber:latest
           name: subscriber
