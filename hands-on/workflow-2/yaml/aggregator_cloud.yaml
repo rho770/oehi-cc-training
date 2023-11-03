@@ -15,7 +15,7 @@ spec:
       labels:
         app: aggregator-$USER
     spec:
-      nodeName: cn01.guoehi.cluster
+      nodeName: cn05.guoehi.cluster
       containers:
         - image: cn04:30500/$USER-aggregator:latest
           name: aggregator

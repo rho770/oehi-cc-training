@@ -36,20 +36,20 @@ spec:
               cpu: 200m
       restartPolicy: Always
       dnsPolicy: ClusterFirstWithHostNet
----
-apiVersion: v1
-kind: Service
-metadata:
-  namespace: decice
-  name: publisher-$USER
-  labels:
-    name: publisher-$USER
-spec:
-  ports:
-    - port: 32000
-      targetPort: 1883
-      name: http-$USER
-      protocol: TCP
-  selector:
-    app: publisher-$USER
-  type: ClusterIP
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+  # namespace: decice
+  # name: publisher-$USER
+  # labels:
+    # name: publisher-$USER
+# spec:
+  # ports:
+    # - port: 32000
+      # targetPort: 1883
+      # name: http-$USER
+      # protocol: TCP
+  # selector:
+    # app: publisher-$USER
+  # type: ClusterIP

@@ -24,7 +24,7 @@ spec:
             - name: BROKER_ADDRESS
               value: "cn04"
             - name: BROKER_PORT
-              value: "1883"
+              value: "31883"
           resources:
             requests:
               memory: 100Mi
