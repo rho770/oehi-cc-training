@@ -19,13 +19,11 @@ spec:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-            - matchExpressions:
-              - key: node-role.kubernetes.io/worker
-                operator: In
-                values:
-                - worker
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/worker
+                    operator: Exists
       containers:
-        - image: cn04:30500/$USER-client-wf:latest
+        - image: cn03:30500/$USER-client-wf:latest
           name: client-wf
           imagePullPolicy: Always
           env:

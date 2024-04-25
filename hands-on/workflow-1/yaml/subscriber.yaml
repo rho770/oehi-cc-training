@@ -19,13 +19,11 @@ spec:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-            - matchExpressions:
-              - key: node-role.kubernetes.io/worker
-                operator: In
-                values:
-                - worker
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/worker
+                    operator: Exists
       containers:
-        - image: cn04:30500/$USER-subscriber:latest
+        - image: cn03:30500/$USER-subscriber:latest
           name: subscriber
           imagePullPolicy: Always
           env:
@@ -48,16 +46,16 @@ spec:
 # apiVersion: v1
 # kind: Service
 # metadata:
-  # namespace: decice
-  # name: subscriber-$USER
-  # labels:
-    # name: subscriber-$USER
+# namespace: decice
+# name: subscriber-$USER
+# labels:
+# name: subscriber-$USER
 # spec:
-  # ports:
-    # - port: 31000
-      # targetPort: 1883
-      # name: http-$USER
-      # protocol: TCP
-  # selector:
-    # app: subscriber-$USER
-  # type: ClusterIP
+# ports:
+# - port: 31000
+# targetPort: 1883
+# name: http-$USER
+# protocol: TCP
+# selector:
+# app: subscriber-$USER
+# type: ClusterIP

@@ -4,7 +4,7 @@ WORKDIR /home
 
 RUN apt update 
 
-RUN pip install paho-mqtt
+RUN pip install paho-mqtt<2.0.0
 
 COPY publisher.py /home/
 

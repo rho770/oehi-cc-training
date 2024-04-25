@@ -19,11 +19,11 @@ spec:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-            - matchExpressions:
-              - key: node-role.kubernetes.io/edge
-                operator: Exists
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/edge
+                    operator: Exists
       containers:
-        - image: cn04:30500/$USER-collector:latest
+        - image: cn03:30500/$USER-collector:latest
           name: collector
           imagePullPolicy: Always
           env:
