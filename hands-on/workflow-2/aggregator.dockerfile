@@ -4,7 +4,7 @@ WORKDIR /home
 
 RUN apt update 
 
-RUN pip install paho-mqtt<2.0.0
+RUN pip install "paho-mqtt<2.0.0"
 
 COPY aggregator-cloud.py /home/
 

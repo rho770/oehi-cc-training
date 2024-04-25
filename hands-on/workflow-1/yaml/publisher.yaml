@@ -26,9 +26,10 @@ spec:
         - image: cn03:30500/$USER-publisher:latest
           name: publisher
           imagePullPolicy: Always
+          # command: ["sleep", "100600"] # for-testing
           env:
             - name: BROKER_ADDRESS
-              value: "mosquitto.decice"
+              value: "mosquitto"
             - name: BROKER_PORT
               value: "1883"
             - name: TOPIC
@@ -41,7 +42,7 @@ spec:
               memory: 200Mi
               cpu: 200m
       restartPolicy: Always
-      dnsPolicy: ClusterFirstWithHostNet
+      # dnsPolicy: ClusterFirstWithHostNet
 # ---
 # apiVersion: v1
 # kind: Service
