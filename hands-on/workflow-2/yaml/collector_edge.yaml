@@ -28,7 +28,7 @@ spec:
           imagePullPolicy: Always
           env:
             - name: BROKER_ADDRESS
-              value: "cn04"
+              value: "cn05"
             - name: BROKER_PORT
               value: "31883"
           resources:
