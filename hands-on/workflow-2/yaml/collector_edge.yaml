@@ -23,7 +23,7 @@ spec:
                   - key: node-role.kubernetes.io/edge
                     operator: Exists
       containers:
-        - image: cn03:30500/$USER-collector:latest
+        - image: ghcr.io/haicgu/$USER-collector:latest
           name: collector
           imagePullPolicy: Always
           env:
@@ -38,5 +38,7 @@ spec:
             limits:
               memory: 200Mi
               cpu: 200m
+      imagePullSecrets:
+        - name: github-secret-haicgu
       restartPolicy: Always
       dnsPolicy: ClusterFirstWithHostNet

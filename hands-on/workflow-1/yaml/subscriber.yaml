@@ -23,7 +23,7 @@ spec:
                   - key: node-role.kubernetes.io/worker
                     operator: Exists
       containers:
-        - image: cn03:30500/$USER-subscriber:latest
+        - image: ghcr.io/haicgu/$USER-subscriber:latest
           name: subscriber
           imagePullPolicy: Always
           env:
@@ -40,6 +40,8 @@ spec:
             limits:
               memory: 200Mi
               cpu: 200m
+      imagePullSecrets:
+        - name: github-secret-haicgu
       restartPolicy: Always
       #dnsPolicy: ClusterFirstWithHostNet
 # ---

@@ -23,7 +23,7 @@ spec:
                   - key: node-role.kubernetes.io/worker
                     operator: Exists
       containers:
-        - image: cn03:30500/$USER-client-wf:latest
+        - image: ghcr.io/haicgu/$USER-client-wf:latest
           name: client-wf
           imagePullPolicy: Always
           env:
@@ -38,5 +38,7 @@ spec:
             limits:
               memory: 200Mi
               cpu: 200m
+      imagePullSecrets:
+        - name: github-secret-haicgu
       restartPolicy: Always
       dnsPolicy: ClusterFirstWithHostNet
