@@ -6,17 +6,13 @@ import random
 from paho.mqtt import client as mqtt_client
 
 
-# broker = 'localhost'           # Broker in container should be used for the tutorial
-# broker = 'broker.emqx.io'       # Free public MQTT broker
-# port = 1883
-# topic = 'test'
 broker = os.getenv("BROKER_ADDRESS", "broker.emqx.io")  # Free public MQTT broker
 port = int(os.getenv("BROKER_PORT", "1883"))
 topic = os.getenv("TOPIC", "test")
 node = platform.node()
 
 # Generate a Client ID with the subscribe prefix.
-client_id = f"subscriber-{random.randint(0, 100)}"
+client_id = f"subscriber-{random.randint(0, 10000)}"
 
 
 def connect_mqtt() -> mqtt_client:

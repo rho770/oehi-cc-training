@@ -12,15 +12,28 @@ topic = os.getenv("TOPIC", "data-aggregator")
 node = platform.node()
 
 # Generate a Client ID with the subscribe prefix.
-client_id = f'client-{random.randint(0, 100)}'
+client_id = f"client-{random.randint(0, 10000)}"
+
+
+def on_connect(mqttc, obj, flags, rc):
+    print("On connect called")
+    mqttc.subscribe(topic)
+
+
+def on_message(mqttc, obj, msg):
+    print(f"Received `{msg.payload.decode()}` from topic `{msg.topic}`")
+
+
+def on_subscribe(mqttc, obj, mid, granted_qos):
+    print("Subscribed: " + str(mid) + " " + str(granted_qos))
 
 
 def connect_mqtt() -> mqtt_client:
     def on_connect(client, userdata, flags, rc):
         if rc == 0:
-            print('Connected to MQTT Broker!')
+            print("Connected to MQTT Broker!")
         else:
-            print('Failed to connect, return code %d\n', rc)
+            print("Failed to connect, return code %d\n", rc)
 
     client = mqtt_client.Client(client_id)
     client.on_connect = on_connect
@@ -30,7 +43,7 @@ def connect_mqtt() -> mqtt_client:
 
 def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
-        print(f'Received `{msg.payload.decode()}` from topic `{msg.topic}`')
+        print(f"Received `{msg.payload.decode()}` from topic `{msg.topic}`")
 
     client.subscribe(topic)
     client.on_message = on_message
@@ -38,9 +51,12 @@ def subscribe(client: mqtt_client):
 
 def run():
     client = connect_mqtt()
-    subscribe(client)
+    client.on_message = on_message
+    client.on_connect = on_connect
+    client.on_subscribe = on_subscribe
+
     client.loop_forever()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run()

@@ -13,7 +13,7 @@ topic = os.getenv("TOPIC", "data-collector")
 node = platform.node()
 
 # Generate a Client ID with the publish prefix.
-client_id = f'edge-{random.randint(0, 1000)}'
+client_id = f"edge-{random.randint(0, 10000)}"
 
 
 def connect_mqtt():
@@ -47,8 +47,8 @@ def run():
     client = connect_mqtt()
     client.loop_start()
     collect_publish(client)
-    client.loop_stop()
+    # client.loop_stop()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run()

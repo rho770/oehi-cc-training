@@ -7,8 +7,6 @@ import os
 from paho.mqtt import client as mqtt_client
 
 
-#broker = 'localhost'           # Broker in container should be used for the tutorial
-broker = 'broker.emqx.io'       # Free public MQTT broker
 broker = os.getenv("BROKER_ADDRESS", "broker.emqx.io")  # Free public MQTT broker
 port = int(os.getenv("BROKER_PORT", "1883"))
 topic_collector = os.getenv("TOPIC_COLLECTOR", "data-collector")
@@ -17,7 +15,7 @@ time_publish = 5
 node = platform.node()
 
 # Generate a Client ID with the publish prefix.
-client_id = f'cloud-{random.randint(0, 1000)}'
+client_id = f"cloud-{random.randint(0, 10000)}"
 
 
 class Timer:
@@ -31,7 +29,7 @@ class Timer:
         self.tstop = self.tstart + self.delta
 
     def check(self):
-        return (time.time() > self.tstop)
+        return time.time() > self.tstop
 
 
 timer = Timer(time_publish)
@@ -76,7 +74,7 @@ def aggregate_publish(client):
 
         load.add(float(val))
 
-        if (timer.check()):
+        if timer.check():
             avg = load.avg()
             msg = f"{node};{avg}"
             result = client.publish(topic_aggregator, msg)
@@ -95,11 +93,11 @@ def aggregate_publish(client):
 
 def run():
     client = connect_mqtt()
-    #client.loop_start()
+    # client.loop_start()
     timer.start()
     aggregate_publish(client)
     client.loop_forever()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run()

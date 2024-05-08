@@ -7,18 +7,13 @@ import platform
 from paho.mqtt import client as mqtt_client
 
 
-# broker = 'localhost'           # Broker in container should be used for the tutorial
-# broker = 'broker.emqx.io'       # Free public MQTT broker
-# port = 1883
-# topic = 'test'
-
 broker = os.getenv("BROKER_ADDRESS", "broker.emqx.io")  # Free public MQTT broker
 port = int(os.getenv("BROKER_PORT", "1883"))
 topic = os.getenv("TOPIC", "test")
 node = platform.node()
 
 # Generate a Client ID with the publish prefix.
-client_id = f"publisher-{random.randint(0, 1000)}"
+client_id = f"publisher-{random.randint(0, 10000)}"
 
 
 def connect_mqtt():
@@ -32,6 +27,7 @@ def connect_mqtt():
     client.on_connect = on_connect
     client.connect(broker, port)
     return client
+
 
 # Let it run a bit longer to avoid CrashLoopBacks..
 def publish(client):
@@ -47,6 +43,7 @@ def publish(client):
         else:
             print(f"Failed to send message to topic {topic}")
         msg_count += 1
+
 
 def run():
     client = connect_mqtt()
